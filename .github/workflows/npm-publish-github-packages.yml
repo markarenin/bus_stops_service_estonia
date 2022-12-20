@@ -16,7 +16,9 @@ jobs:
           node-version: 16
       - run: cd frontend
       - run: npm ci
+        working-directory: ./frontend
       - run: npm test
+        working-directory: ./frontend
 
   publish-gpr:
     needs: build
@@ -30,8 +32,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: cd frontend
       - run: npm ci
+        working-directory: ./frontend
       - run: npm publish
+        working-directory: ./frontend
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
