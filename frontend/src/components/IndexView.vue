@@ -288,7 +288,7 @@ export default {
       this.stopTimes = []
       try {
         this.stopTimesLoading = true;
-        const response = await axios.get(`http://127.0.0.1:8000/api/next-stoptimes/${stop_id}/${route_id}/`);
+        const response = await axios.get(`api/next-stoptimes/${stop_id}/${route_id}/`);
         this.stopTimes = response.data;
       } catch (error) {
         this.errorMessage = 'An error occurred while retrieving the regions';
