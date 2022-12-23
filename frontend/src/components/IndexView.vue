@@ -259,6 +259,15 @@ export default {
       try {
         const response = await axios.get(`api/routes/${stop_id}/`);
         this.busSuggestions = response.data;
+        this.busSuggestions.sort((a, b) => {
+            if (a.route_short_name < b.route_short_name) {
+              return -1;
+            }
+            if (a.route_short_name > b.route_short_name) {
+              return 1;
+            }
+            return 0;
+          })
       } catch (error) {
         this.errorMessage = 'An error occurred while retrieving the regions';
       } finally {

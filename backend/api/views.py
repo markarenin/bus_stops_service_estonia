@@ -81,7 +81,8 @@ class StopListView(APIView):
 class RouteListAPIView(APIView):
     def get(self, request, stop_id):
         stop = Stop.objects.get(id=stop_id)
-        routes = Route.objects.filter(trips__times__stop=stop).distinct('id')
+        route_ids = Route.objects.filter(trips__times__stop=stop).distinct('id').values_list('id', flat=True)
+        routes = Route.objects.filter(id__in=route_ids).order_by('route_short_name')
         serializer = RouteSerializer(routes, many=True)
         return Response(serializer.data)
 
